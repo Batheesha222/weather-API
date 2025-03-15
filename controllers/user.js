@@ -63,4 +63,39 @@ const signin = async (req, res) => {
   }
 };
 
-module.exports = { signup, signin }
+const updateLocation = async (req, res, next) => {
+  try {
+    const { location} = req.body;
+
+    const { _id } = req.user;
+    const user = await User.findById(_id);
+
+    if (!user) {
+      res.code = 401;
+      throw new Error("user not found");
+    }
+    user.location = location ? location : user.location;
+
+
+    await user.save();
+
+    res.status(200).json({
+      code: 200,
+      status: true,
+      message: "user location update successfully",
+      data: { user },
+    });
+
+    res.json(req.user);
+
+  } catch (error) {
+  
+    res.status(400).json({
+      code: 400,
+      status: false,
+      message: "user location updating failed",
+    });
+  }
+};
+
+module.exports = { signup, signin,updateLocation }
