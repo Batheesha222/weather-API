@@ -86,8 +86,6 @@ const updateLocation = async (req, res, next) => {
       data: { user },
     });
 
-    res.json(req.user);
-
   } catch (error) {
   
     res.status(400).json({

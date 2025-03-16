@@ -16,7 +16,7 @@ const isAuth = async (req, res, next) => {
           _id: payload._id,
           name: payload.name,
           email: payload.email,
-          role: payload.role,
+          location:payload.location
         };
       }
     } else {
@@ -27,7 +27,12 @@ const isAuth = async (req, res, next) => {
     next();
 
   } catch (error) {
-    next(error)
+    return res.status(401).json({
+      code: 401,
+      status: false,
+      message: "Unauthorized access",
+      error: error.message,
+    });
   }
 };
 
