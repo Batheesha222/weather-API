@@ -5,7 +5,7 @@ const {
     OPENWEATHER_API_KEY,
     SENDER_EMAIL,
     EMAIL_PASSWORD,
-    
+    OPENAI_API_KEY
 } = process.env;
 
 module.exports = {
@@ -15,5 +15,5 @@ module.exports = {
     openWeatherApiKey: OPENWEATHER_API_KEY,
     senderEmail: SENDER_EMAIL,
     emailPassword: EMAIL_PASSWORD,
-    
+    openaiApiKey:OPENAI_API_KEY
 };
