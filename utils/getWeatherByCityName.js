@@ -19,8 +19,8 @@ const getWeatherByCityName = async(cityName) => {
         date: new Date().toISOString().split('T')[0],
         weather: {
           description: data.weather[0].description,
-          temperature: data.main.temp - 273.15,
-          feels_like: data.main.feels_like - 273.15,
+          temperature: (data.main.temp - 273.15).toFixed(2),
+          feels_like: (data.main.feels_like - 273.15).toFixed(2),
           humidity: data.main.humidity,
           pressure: data.main.pressure,
           wind_speed: data.wind.speed,
