@@ -22,6 +22,11 @@ app.use(bodyParser.urlencoded({ limit: "500mb", extended: true })); //extended:t
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/weather", weatherRoute);
 
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
+  })
+
+  
 // Start the scheduler
 emailScheduler();
 
