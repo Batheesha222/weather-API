@@ -1,8 +1,8 @@
 const cron = require('node-cron');
-const { User } = require('../models');
+const { User, Weather } = require('../models');
 const { getWeatherByCityName } = require('../utils/getWeatherByCityName');
-const  sendEmail  = require('../utils/sendEmail');
-const {generateWeatherReport} = require("../utils/generateWeatherReport")
+const sendEmail = require('../utils/sendEmail');
+const { generateWeatherReport } = require("../utils/generateWeatherReport")
 
 
 const sendWeatherUpdate = async () => {
@@ -22,6 +22,30 @@ const sendWeatherUpdate = async () => {
                 Date: ${weatherResponse.date}
             `;
 
+
+            try {
+                const currentWeather = new Weather({
+                    userId: user._id,
+                    cityName: weatherResponse.cityName,
+                    cityId: weatherResponse.cityId,
+                    date: weatherResponse.date, // Stores as "YYYY-MM-DD"
+                    weather: {
+                        description: weatherResponse.weather.description,
+                        temperature: weatherResponse.weather.temperature,
+                        feels_like: weatherResponse.weather.feels_like,
+                        humidity: weatherResponse.weather.humidity,
+                        pressure: weatherResponse.weather.pressure,
+                        wind_speed: weatherResponse.weather.wind_speed,
+                        cloud_coverage: weatherResponse.weather.cloud_coverage,
+                    }
+                })
+
+                await currentWeather.save();
+
+                console.log("current weather data saved in db")
+            } catch (error) {
+                console.log("current weather data saving failed")
+            }
 
             const weatherReport = await generateWeatherReport(weatherResponse);
 
