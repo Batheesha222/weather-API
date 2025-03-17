@@ -37,7 +37,7 @@ cd weather-app
 npm install
 ```
 
-3. **Create a **``** file**
+3. **Create a **`env`** file**
 
 ```env
 PORT=3000
